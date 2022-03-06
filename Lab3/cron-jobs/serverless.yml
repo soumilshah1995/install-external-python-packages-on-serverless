@@ -1,0 +1,15 @@
+service: cron-jobs
+
+frameworkVersion: '3'
+
+
+provider:
+  name: aws
+  runtime: python3.8
+
+functions:
+  cronHandler:
+    handler: handler.run
+    events:
+      # Invoke Lambda function every 2nd minute from Mon-Fri
+      - schedule: cron(0/2 * ? * MON-FRI *)

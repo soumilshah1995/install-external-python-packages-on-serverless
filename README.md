@@ -4,6 +4,8 @@ install external python packages on serverless
 # Tutorials 
 * Part 1: https://www.youtube.com/watch?v=Ke7DSpsszWY
 * Part 2: https://www.youtube.com/watch?v=qVk1L7MHjGM&t=454s
+* Part 3: https://www.youtube.com/watch?v=lC489CpKg-s
+
 
 
 ## Step 1: Install Serverless
@@ -36,13 +38,20 @@ sls deploy
 ```
 
 
-Reference
+### Reference
 
 * https://www.serverless.com/blog/serverless-python-packaging/
   
 * https://www.serverless.com/plugins/serverless-python-requirements
 
 * https://towardsdatascience.com/deploying-aws-lamba-function-layer-with-serverless-framework-f3f4fab1b7e9
+
+# Further reading 
+
+* Build a Python REST API with Serverless, Lambda, and DynamoDB
+https://www.serverless.com/blog/flask-python-rest-api-serverless-lambda-dynamodb/
+
+
 
 
 
