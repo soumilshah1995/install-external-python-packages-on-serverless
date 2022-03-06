@@ -5,6 +5,7 @@ install external python packages on serverless
 * Part 1: https://www.youtube.com/watch?v=Ke7DSpsszWY
 * Part 2: https://www.youtube.com/watch?v=qVk1L7MHjGM&t=454s
 * Part 3: https://www.youtube.com/watch?v=lC489CpKg-s
+* Part 4 : https://www.youtube.com/watch?v=SEHEAVOMQfQ
 
 
 
