@@ -1,0 +1,21 @@
+org: scientist1995
+app: demo
+console: true
+service: aws-event-bus
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.8
+
+functions:
+  lambda-events:
+    handler: handler.hello
+    events:
+      - eventBridge:
+          eventBus: XXXXXXXXXXXXXXXX
+          pattern:
+            version:
+              - "0"
+
