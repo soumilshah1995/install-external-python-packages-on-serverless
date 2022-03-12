@@ -1,0 +1,19 @@
+org: scientist1995
+app: demo
+console: true
+service: learn-sqs
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.8
+
+plugins:
+  - serverless-lift
+
+constructs:
+  my-queue:
+    type: queue
+    worker:
+      handler: handler.hello
