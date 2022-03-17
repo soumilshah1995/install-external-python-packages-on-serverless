@@ -1,0 +1,21 @@
+service: event-bus-lambda
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.8
+
+functions:
+
+  hello:
+    handler: handler.hello
+    destinations:
+      onSuccess: sucessHandler
+      onFailure: FailureHandler
+
+  sucessHandler:
+    handler: sucess.sucess_handler
+
+  FailureHandler:
+    handler: fail.fail_handler
