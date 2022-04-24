@@ -1,6 +1,5 @@
 org: scientist1995
 app: demo
-console: true
 service: aws-python-http-api-project
 frameworkVersion: '3'
 
@@ -10,18 +9,7 @@ provider:
   apiGateway:
     apiKeys:
       - name: 'user1'
-        value: 'your-api-key-that-is-at-least-20-characters-long'
-        # - user1
-
-plugins:
-  - serverless-api-gateway-throttling
-
-custom:
-  # Configures throttling settings for the API Gateway stage
-  # They apply to all http endpoints, unless specifically overridden
-  apiGatewayThrottling:
-    maxRequestsPerSecond: 1000
-    maxConcurrentRequests: 500
+      - value: 'your-api-key-that-is-at-least-20-characters-long'
 
 functions:
   hello:

@@ -1,0 +1,35 @@
+org: scientist1995
+app: demo
+service: aws-python-http-api-project
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.8
+
+plugins:
+  - serverless-add-api-key
+
+custom:
+  apiKeys:
+    - name: dev-free-account
+    - value: 'your-api-key-that-is-at-least-20-characters-long'
+      usagePlan:
+        name: "Free Plan"
+        description: "Free plan allows only limited requests"
+        quota:
+          limit: 5            # The target maximum number of requests that can be made in a given time period.
+          period: DAY         # The time period for which the target maximum limit of requests applies, such as DAY or WEEK. For valid values, see the period property for the UsagePlan resource in the Amazon API Gateway REST API Reference.
+        throttle:
+          burstLimit: 100     # The API target request burst rate limit. This allows more requests through for a period of time than the target rate limit. For more information about request throttling, see Manage API Request Throttling in the API Gateway Developer Guide.
+          rateLimit: 10       # The API
+
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: /hello
+          method: post
+          private: true
