@@ -58,11 +58,16 @@ sls deploy
 * https://www.serverless.com/plugins/serverless-python-requirements
 
 * https://towardsdatascience.com/deploying-aws-lamba-function-layer-with-serverless-framework-f3f4fab1b7e9
+* https://aws.plainenglish.io/serverless-framework-setting-up-a-custom-domain-to-api-gateway-91064a598f1d
+
 
 # Further reading 
 
 * Build a Python REST API with Serverless, Lambda, and DynamoDB
 https://www.serverless.com/blog/flask-python-rest-api-serverless-lambda-dynamodb/
+
+
+
 
 
 

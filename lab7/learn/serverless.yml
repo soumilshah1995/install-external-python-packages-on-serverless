@@ -1,18 +1,26 @@
 org: scientist1995
 app: demo
-console: true
-service: learn
+service: aws-python-http-api-project
 frameworkVersion: '3'
 
 provider:
   name: aws
   runtime: python3.8
+  memorySize: 2000
+  timeout: 900
+  architecture: x86_64
+  stackTags:
+    product: soumil-team
+    env: qa
+    created-date: 2022-04-05
+    team: data
+    customer-impact: false
+    terraform: false
 
 functions:
   hello:
     handler: handler.hello
     events:
-      - httpApi:
-          path: /
-          method: get
-
+      - http:
+          path: /hello
+          method: post
