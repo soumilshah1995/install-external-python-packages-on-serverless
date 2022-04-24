@@ -14,8 +14,11 @@ install external python packages on serverless
 * Part 6: https://www.youtube.com/watch?v=UglcKQ3cnvc&list=PLL2hlSFBmWwzA7ut0KKYM6F8LKfu84-5c&index=7
 
 
+
 #### Lambda Event Bride and Serverless 
 * Serverless and API gateway and Lambda Hello World
+* Lab 7: https://youtu.be/fPxos27jOFE
+* Lab 8 https://youtu.be/j_Gz-ACum80
 
 
 
