@@ -1,0 +1,33 @@
+org: scientist1995
+app: demo
+service: aws-dynamo-project
+frameworkVersion: '3'
+
+provider:
+  name: aws
+
+
+resources:
+  Resources:
+    myTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: myTable
+        AttributeDefinitions:
+          - AttributeName: email
+            AttributeType: S
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: email
+            KeyType: HASH
+          - AttributeName: userId
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        Tags:
+          - Key: 'product'
+            Value: 'soumil'
+          - Key: 'customerImpact'
+            Value: 'false'
