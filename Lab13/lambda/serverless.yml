@@ -1,0 +1,33 @@
+service: sls-ddog-demo
+useDotenv: true # If set to 'true', environment variables will be automatically loaded from .env files
+
+provider:
+  name: aws
+  runtime: python3.6
+  memorySize: 300
+  timeout: 10
+  architecture: x86_64
+  stackTags:
+    product: datateam
+    env: qa
+    created-date: 2022-04-05
+    team: data
+    customer-impact: false
+    terraform: false
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-python-requirements
+custom:
+  pythonRequirements:
+    layer:
+      name: python-ddog
+      description: "Layer which contains ddog library"
+      compatibleRuntimes:
+        - python3.6
+
+functions:
+  ddog_handler:
+    handler: handler.handler
+    layers:
+      - Ref: PythonRequirementsLambdaLayer
