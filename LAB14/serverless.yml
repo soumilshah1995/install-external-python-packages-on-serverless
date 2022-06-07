@@ -1,0 +1,39 @@
+service: sls-create-glue-crawler
+useDotenv: true
+
+
+provider:
+  name: aws
+  region: us-east-1
+
+  stackTags:
+    product: datateam
+    env: qa
+    created-date: 2022-04-05
+    team: data
+    customer-impact: false
+    terraform: false
+
+resources:
+  Resources:
+    GlueDatabase:
+      Type: AWS::Glue::Database
+      Properties:
+        CatalogId: '867098943567'
+        DatabaseInput:
+          Name: ${env:DB_NAME}
+
+    TableGlueCrawler:
+      Type: AWS::Glue::Crawler
+      Properties:
+        DatabaseName: ${env:DB_NAME}
+        Name: ${env:CRAWLER_NAME}
+        RecrawlPolicy:
+          RecrawlBehavior: CRAWL_EVERYTHING
+        Role: ${env:GLUE_ROLE_ARN}
+        SchemaChangePolicy:
+          DeleteBehavior: DEPRECATE_IN_DATABASE
+        Targets:
+          S3Targets:
+            - Path: ${env:CRAWLER_TARGET_PATH}
+
