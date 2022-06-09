@@ -1,0 +1,42 @@
+service: sls-create-glue-job
+useDotenv: true
+
+
+provider:
+  name: aws
+  region: us-east-1
+  stackTags:
+    product: datateam
+    env: qa
+    created-date: 2022-04-05
+    team: data
+    customer-impact: false
+    terraform: false
+
+package:
+  exclude:
+    - package-lock.json
+    - package.json
+    - node_modules/**
+
+plugins:
+  - serverless-glue
+Glue:
+  bucketDeploy: ${env:s3_bucket}
+  jobs:
+    - name: ${env:job_name}
+      scriptPath: ${env:glue_script_python_file_name}
+      type: spark
+      glueVersion: python3-3.7
+      role: ${env:glue_iam}
+      MaxConcurrentRuns: 3
+      WorkerType: Standard
+      NumberOfWorkers: 1
+      Timeout: 2880
+      MaxRetries: 2
+      SupportFiles:
+        - local_path: ${env:local_path}
+          s3_bucket: ${env:s3_bucket}
+          s3_prefix: ${env:s3_prefix_glue_script}
+          execute_upload: True
+
