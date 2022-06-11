@@ -9,15 +9,14 @@ stages:
 code-quailty:
   image: python:3.7
   stage: test
-  allow_failure: true
+  allow_failure: false
   before_script:
     - echo "*********Reformatting code***********"
-    - pip install black
-    - black .
     - pip install flake8
+    - pip install bandit
   script:
+    - bandit .
     - flake8 --select B,C,E,F,W,T4,B9 --ignore E501,W503,F401,F541 --max-line-length 79 --max-complexity 18
-
 
 
 #############################################################
