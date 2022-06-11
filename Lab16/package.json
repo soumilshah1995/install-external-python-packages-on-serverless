@@ -1,0 +1,12 @@
+{
+  "name": "myService",
+  "version": "1.0.0",
+  "description": "Simple serverless gitlab ci template",
+  "main": "handler.js",
+  "author": "Ben Vincent <benjc.vincent@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "test": "echo \"serverless invoke -f hello\n\" "
+  }
+}
