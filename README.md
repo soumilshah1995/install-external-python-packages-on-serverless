@@ -4,6 +4,8 @@ install external python packages on serverless
 # Tutorials 
 
 
+
+
 #### Lambda Event Bride and Serverless 
 * Part 1: https://www.youtube.com/watch?v=Ke7DSpsszWY
 * Part 2: https://www.youtube.com/watch?v=qVk1L7MHjGM&t=454s
