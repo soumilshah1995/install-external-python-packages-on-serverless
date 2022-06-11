@@ -1,7 +1,30 @@
 stages:
+  - test
   - deploy
 
-dev:
+
+#############################################################
+# 🚀 Code check
+#############################################################
+code-quailty:
+  image: python:3.7
+  stage: test
+  allow_failure: true
+  before_script:
+    - echo "*********Reformatting code***********"
+    - pip install black
+    - black .
+    - pip install flake8
+  script:
+    - flake8 --select B,C,E,F,W,T4,B9 --ignore E501,W503,F401,F541 --max-line-length 79 --max-complexity 18
+
+
+
+#############################################################
+# 🚀 Deploy
+#############################################################
+
+deployQa:
   stage: deploy
   image: node:latest
   when: manual
@@ -19,4 +42,4 @@ dev:
     - serverless config credentials --provider aws --key "$AWS_ACCESS_KEY_ID"  --secret "$AWS_SECRET_ACCESS_KEY" -o
   script:
     - sls deploy
-  environment: dev
+  environment: deployQa
