@@ -23,7 +23,7 @@ install external python packages on serverless
 |15   |Learn How to Deploy Glue Job (Scripts) Through Serverless Framework with Code &#124; Lab 15           |https://www.youtube.com/watch?v=l3OtAhOJ-CM&list=PLL2hlSFBmWwzA7ut0KKYM6F8LKfu84-5c&index=16|https://github.com/soumilshah1995/install-external-python-packages-on-serverless/tree/main/Lab15                           |
 |16   |Learn how to create CICD Pipeline in a very easy  for Serverless Framework &#124; Lambda              |                                                                                            |https://github.com/soumilshah1995/install-external-python-packages-on-serverless/tree/main/Lab16                           |
 
-
+|17   |Learn how to integrate and deploy Kinesis Data Stream with Lambda with serverless Framework Lab 17          |   https://www.youtube.com/watch?v=ggAGHTLivbs                                                                                         |        https://github.com/soumilshah1995/install-external-python-packages-on-serverless/tree/main/Lab17                 |
 
 
 ## Step 1: Install Serverless
