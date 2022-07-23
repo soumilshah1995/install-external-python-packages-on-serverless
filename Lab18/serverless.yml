@@ -1,0 +1,28 @@
+service: sls-scrapper
+
+useDotenv: true
+
+
+provider:
+  name: aws
+  region: us-east-1
+  runtime: python3.7
+  memorySize: 512
+  timeout: 10
+  architecture: x86_64
+  stackTags:
+    product: datateam
+    env: qa
+    created-date: 2022-04-05
+    team: data
+    customer-impact: false
+    terraform: false
+
+
+functions:
+  lambda:
+    handler: lambda_handler.lambda_handler
+    timeout: 850
+    layers:
+      - arn:aws:lambda:us-east-1:867098943567:layer:selenium:1
+
