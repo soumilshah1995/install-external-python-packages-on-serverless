@@ -22,7 +22,9 @@ install external python packages on serverless
 |15   |Learn How to Deploy Glue Job (Scripts) Through Serverless Framework with Code &#124; Lab 15           |https://www.youtube.com/watch?v=l3OtAhOJ-CM&list=PLL2hlSFBmWwzA7ut0KKYM6F8LKfu84-5c&index=16|https://github.com/soumilshah1995/install-external-python-packages-on-serverless/tree/main/Lab15                           |
 |16   |Learn how to create CICD Pipeline in a very easy  for Serverless Framework &#124; Lambda              |                                                                                            |https://github.com/soumilshah1995/install-external-python-packages-on-serverless/tree/main/Lab16                           |
 |17   |Learn how to integrate and deploy Kinesis Data Stream with Lambda with serverless Framework Lab 17          |   https://www.youtube.com/watch?v=ggAGHTLivbs                                                                                         |        https://github.com/soumilshah1995/install-external-python-packages-on-serverless/tree/main/Lab17                 |
+|18   |Learn how to Develop Web Scrappers and scrape things at Scale Using AWS Lambdas  Lab 18        |   XXXX                                                                                         |        https://github.com/soumilshah1995/install-external-python-packages-on-serverless/tree/main/Lab18                |
 
+## Lab 18 : Refer https://github.com/soumilshah1995/Selenium-on-AWS-Lambda-Python3.7
 
 ## Step 1: Install Serverless
 ```
@@ -31,6 +33,7 @@ npm install -g serverless
 serverless config credentials --provider aws --key XXXX  --secret XXXXX -o
 
 ```
+
 
 
 ## Step 2: Create Project 
