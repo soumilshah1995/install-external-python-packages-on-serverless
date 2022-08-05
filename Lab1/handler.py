@@ -8,12 +8,11 @@ import json
 import pandas as pd
 
 def hello(event, context):
-
+    print("In......")
     df = pd.DataFrame(data={"name":["Soumil", "Nitin"]})
     print(df)
     print("\n")
     print(df.shape)
-
 
     response = {
         "statusCode": 200,

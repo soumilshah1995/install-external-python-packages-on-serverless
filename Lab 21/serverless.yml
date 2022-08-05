@@ -1,0 +1,33 @@
+service: sls-pandas-py
+
+provider:
+  name: aws
+  runtime: python3.7
+  memorySize: 1000
+  timeout: 350
+
+plugins:
+  - serverless-python-requirements
+
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    layer:
+      name: python-pandas
+      description: "Layer which contains pandas library"
+      compatibleRuntimes:
+        - python3.7
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - s3:
+          bucket: test-data-buckets-raw
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: uploads/
+            - suffix: .csv
+          existing: true
+          forceDeploy: true

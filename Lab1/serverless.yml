@@ -2,7 +2,7 @@ service: sls-pandas-py
 
 provider:
   name: aws
-  runtime: python3.6
+  runtime: python3.7
 
 plugins:
   - serverless-python-requirements
@@ -12,7 +12,6 @@ custom:
     zip: true
 
 package:
-  # exclude everything...
   exclude:
     - '**/*'
   include:
