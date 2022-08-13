@@ -1,0 +1,73 @@
+service: events
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.7
+  region: us-east-1
+  memorySize: 300
+  timeout: 300
+  architecture: x86_64
+
+useDotenv: true
+
+
+functions:
+
+  hello:
+    handler: consumer.consume
+    name: events-consumer
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - MyQueue
+              - Arn
+    package:
+      patterns:
+        - '!node_modules/**'
+
+
+resources:
+
+  Resources:
+
+    SNSTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: ${env:TopicName}
+        ContentBasedDeduplication: false
+        FifoTopic: true
+
+    MyQueue:
+      Type: "AWS::SQS::Queue"
+      Properties:
+        FifoQueue: true
+        QueueName: ${env:QueueName}
+
+    MyQueuePolicy:
+      Type: AWS::SQS::QueuePolicy
+      Properties:
+        Queues:
+          - !Ref MyQueue
+        PolicyDocument:
+          Statement:
+            -
+              Sid: "MySQSPolicy001"
+              Effect: "Allow"
+              Principal: "*"
+              Action: "sqs:SendMessage"
+              Resource: !GetAtt MyQueue.Arn
+              Condition:
+                ArnEquals:
+                  aws:SourceArn: arn:aws:sns:us-east-1:${env:ACCOUNT}:${env:TopicName}
+
+    SnsSubscription:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Protocol: sqs
+        Endpoint: !GetAtt MyQueue.Arn
+        RawMessageDelivery: 'true'
+        TopicArn: arn:aws:sns:us-east-1:${env:ACCOUNT}:${env:TopicName}
+
+
