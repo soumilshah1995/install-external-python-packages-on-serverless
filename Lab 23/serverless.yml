@@ -1,0 +1,86 @@
+service: sls-dynamo-s3
+
+
+useDotenv: true
+
+
+provider:
+  name: aws
+  region: us-east-1
+  stackTags:
+    product: datateam
+    env: qa
+    created-date: 2022-04-05
+    team: data
+    customer-impact: false
+    terraform: false
+
+package:
+  exclude:
+    - package-lock.json
+    - package.json
+    - node_modules/**
+
+plugins:
+  - serverless-glue
+
+
+Glue:
+  bucketDeploy: ${env:s3_bucket}
+  tempDirBucket: ${env:tempDirBucket}
+  jobs:
+    - name: ${env:job_name}
+      scriptPath: ${env:glue_script_python_file_name}
+      type: spark
+      glueVersion: python3-3.0
+      role: ${env:glue_iam}
+      MaxConcurrentRuns: 3
+      WorkerType: Standard
+      NumberOfWorkers: 3
+      Timeout: 2880
+      MaxRetries: 1
+      tempDir: true
+      SupportFiles:
+        - local_path: ${env:local_path}
+          s3_bucket: ${env:s3_bucket}
+          s3_prefix: ${env:s3_prefix_glue_script}
+          execute_upload: True
+
+
+resources:
+  Resources:
+
+    GlueDatabase:
+      Type: AWS::Glue::Database
+      Properties:
+        CatalogId: '867098943567'
+        DatabaseInput:
+          Name: ${env:DB_NAME}
+
+    TableGlueCrawler:
+      Type: AWS::Glue::Crawler
+      Properties:
+        DatabaseName: ${env:DB_NAME}
+        Name: ${env:CRAWLER_NAME}
+        RecrawlPolicy:
+          RecrawlBehavior: CRAWL_EVERYTHING
+        Role: ${env:GLUE_ROLE_ARN}
+        SchemaChangePolicy:
+          DeleteBehavior: DEPRECATE_IN_DATABASE
+        Targets:
+          DynamoDBTargets:
+            - Path: ${env:CRAWLER_TARGET_PATH_DYNAMODB}
+
+    TableGlueCrawlerAthena:
+      Type: AWS::Glue::Crawler
+      Properties:
+        DatabaseName: ${env:DB_NAME}
+        Name: ${env:CRAWLER_NAME_S3}
+        RecrawlPolicy:
+          RecrawlBehavior: CRAWL_EVERYTHING
+        Role: ${env:GLUE_ROLE_ARN}
+        SchemaChangePolicy:
+          DeleteBehavior: DEPRECATE_IN_DATABASE
+        Targets:
+          S3Targets:
+            - Path: ${env:CRAWLER_TARGET_PATH}
