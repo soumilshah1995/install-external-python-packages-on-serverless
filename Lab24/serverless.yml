@@ -31,6 +31,7 @@ functions:
       DEV_AWS_SECRET_KEY: ${env:DEV_AWS_SECRET_KEY}
       DEV_AWS_REGION_NAME: ${env:DEV_AWS_REGION_NAME}
       bucketname: ${env:bucketname}
+      S3_TABLE_NAME: ${env:S3_TABLE_NAME}
 
     events:
       - stream:
@@ -78,3 +79,23 @@ resources:
         KinesisStreamSpecification:
           StreamArn: !GetAtt KinesisDataStreams.Arn
 
+    GlueDatabase:
+      Type: AWS::Glue::Database
+      Properties:
+        CatalogId: '867098943567'
+        DatabaseInput:
+          Name: ${env:DB_NAME}
+
+    TableGlueCrawlerAthena:
+      Type: AWS::Glue::Crawler
+      Properties:
+        DatabaseName: ${env:DB_NAME}
+        Name: ${env:CRAWLER_NAME_S3}
+        RecrawlPolicy:
+          RecrawlBehavior: CRAWL_EVERYTHING
+        Role: ${env:GLUE_ROLE_ARN}
+        SchemaChangePolicy:
+          DeleteBehavior: DEPRECATE_IN_DATABASE
+        Targets:
+          S3Targets:
+            - Path: ${env:CRAWLER_TARGET_PATH}

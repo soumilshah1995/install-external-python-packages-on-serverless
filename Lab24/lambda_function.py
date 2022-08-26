@@ -124,6 +124,9 @@ def lambda_handler(event, context):
         if eventName.strip().lower() == "INSERT".lower():
             json_data = de_serialize_payload.get("dynamodb").get("NewImage")
 
+        if eventName.strip().lower() == "MODIFY".lower():
+            json_data = de_serialize_payload.get("dynamodb").get("NewImage")
+
         if eventName.strip().lower() == "REMOVE".lower():
             json_data = de_serialize_payload.get("dynamodb").get("OldImage")
 
@@ -140,7 +143,7 @@ def lambda_handler(event, context):
             year, month, day = Datetime.get_year_month_day()
             _final_processed_json = flatten_dict(json_data_unmarshal)
             helper.put_files(
-                Key="table_name=dynamo_db/year={}/month={}/day={}/{}.json".format(year, month, day, uuid.uuid4().__str__()),
+                Key="table_name={}/year={}/month={}/day={}/{}.json".format(os.getenv("S3_TABLE_NAME"),year, month, day, uuid.uuid4().__str__()),
                 Response=json.dumps(_final_processed_json)
             )
             print("_final_processed_json", _final_processed_json)
