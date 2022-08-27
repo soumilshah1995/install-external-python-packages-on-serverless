@@ -1,0 +1,80 @@
+
+service: dynamodb-down-stream-project
+frameworkVersion: '3'
+
+
+
+provider:
+  name: aws
+  runtime: python3.7
+  memorySize: 512
+  timeout: 600
+  architecture: x86_64
+  stackTags:
+    product: job-topic-model
+    env: qa
+    created-date: 2022-04-26
+    team: python-dev
+    customer-impact: false
+    terraform: false
+
+useDotenv: true
+
+
+
+functions:
+  lambda:
+    handler: lambda_function.lambda_handler
+    environment:
+
+      DEV_AWS_ACCESS_KEY: ${env:DEV_AWS_ACCESS_KEY}
+      DEV_AWS_SECRET_KEY: ${env:DEV_AWS_SECRET_KEY}
+      DEV_AWS_REGION_NAME: ${env:DEV_AWS_REGION_NAME}
+      TopicArn: arn:aws:sns:us-east-1:${env:ACCOUNT}:${env:TopicName}
+      ENV: 'dev'
+
+    events:
+      - stream:
+          type: kinesis
+          arn:
+            Fn::GetAtt:
+              - KinesisDataStreams
+              - Arn
+
+
+resources:
+  Resources:
+
+    SNSTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: ${env:TopicName}
+
+    KinesisDataStreams:
+      Type: AWS::Kinesis::Stream
+      Properties:
+        Name: ${env:StreamName}
+        RetentionPeriodHours: ${env:RetentionPeriodHours}
+        StreamModeDetails:
+          StreamMode: ON_DEMAND
+
+    DynamoDBTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${env:DYNAMO_DB_TABLE_NAME}
+        AttributeDefinitions:
+          - AttributeName: pk
+            AttributeType: S
+          - AttributeName: sk
+            AttributeType: S
+        KeySchema:
+          - AttributeName: pk
+            KeyType: HASH
+          - AttributeName: sk
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        TableClass: STANDARD
+        PointInTimeRecoverySpecification:
+          PointInTimeRecoveryEnabled: true
+        KinesisStreamSpecification:
+          StreamArn: !GetAtt KinesisDataStreams.Arn
