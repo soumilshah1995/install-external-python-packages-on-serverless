@@ -1,0 +1,60 @@
+service: athena-primary-workgroup-reports
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.8
+  memorySize: 512
+  timeout: 600
+  architecture: x86_64
+  stackTags:
+    product: reports
+    env: qa
+    created-date: 2022-04-26
+    team: python-dev
+    customer-impact: false
+    terraform: false
+
+useDotenv: true
+
+functions:
+  athena-reporting:
+    handler: lambda_functions.handler
+    environment:
+      DEV_AWS_ACCESS_KEY: ${env:DEV_ACCESS_KEY}
+      DEV_AWS_SECRET_KEY: ${env:DEV_SECRET_KEY}
+      DEV_AWS_REGION_NAME: ${env:DEV_REGION}
+      REPORTS_BUCKETS: ${env:REPORTS_BUCKETS}
+      S3AthenaReports: ${env:S3AthenaReports}
+
+    events:
+      - schedule: cron(5,35 14 * * ? *)
+
+resources:
+  Resources:
+    S3Bucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${env:REPORTS_BUCKETS}
+
+    GlueDatabase:
+      Type: AWS::Glue::Database
+      Properties:
+        CatalogId: '867098943567'
+        DatabaseInput:
+          Name: ${env:DB_NAME}
+
+    TableGlueCrawlerAthena:
+      Type: AWS::Glue::Crawler
+      Properties:
+        DatabaseName: ${env:DB_NAME}
+        Name: ${env:CRAWLER_NAME_S3}
+        RecrawlPolicy:
+          RecrawlBehavior: CRAWL_EVERYTHING
+        Role: ${env:GLUE_ROLE_ARN}
+        SchemaChangePolicy:
+          DeleteBehavior: DEPRECATE_IN_DATABASE
+        Targets:
+          S3Targets:
+            - Path: ${env:CRAWLER_TARGET_PATH}
