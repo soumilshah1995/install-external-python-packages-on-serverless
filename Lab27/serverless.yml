@@ -1,0 +1,56 @@
+service: mongo-migrations-workers
+
+frameworkVersion: '3'
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: python3.8
+  stackTags:
+    product: datateam
+    env: qa
+    created-date: 2022-03-16
+    team: data
+    customer-impact: false
+    terraform: false
+
+
+functions:
+  s3consumer:
+    handler: handler.lambda_handler
+    timeout: 200 # seconds
+    reservedConcurrency: 900
+    environment:
+      APP_AWS_ACCESS_KEY: ${env:APP_AWS_ACCESS_KEY}
+      APP_AWS_REGION_NAME: ${env:APP_AWS_REGION_NAME}
+      APP_AWS_SECRET_KEY: ${env:APP_AWS_SECRET_KEY}
+      S3_BUCKET: ${env:S3_BUCKET}
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - MyQueue
+              - Arn
+
+resources:
+
+  Resources:
+
+    MyQueue:
+      Type: "AWS::SQS::Queue"
+      Properties:
+        QueueName: ${env:NAME_SOURCE_QUEUE}
+        VisibilityTimeout : 500
+        MessageRetentionPeriod: 1209600
+        MaximumMessageSize: 262144
+        ReceiveMessageWaitTimeSeconds: 2
+        RedrivePolicy:
+          deadLetterTargetArn: !GetAtt MyDeadLetterQueue.Arn
+          maxReceiveCount: 5
+
+    MyDeadLetterQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: ${env:NAME_DLQ_QUEUE}
+
