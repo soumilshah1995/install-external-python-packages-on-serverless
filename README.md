@@ -23,13 +23,15 @@ install external python packages on serverless
 |16   |Learn how to create CICD Pipeline in a very easy  for Serverless Framework &#124; Lambda              |                                                                                            |https://github.com/soumilshah1995/install-external-python-packages-on-serverless/tree/main/Lab16                           |
 |17   |Learn how to integrate and deploy Kinesis Data Stream with Lambda with serverless Framework Lab 17          |   https://www.youtube.com/watch?v=ggAGHTLivbs                                                                                         |        https://github.com/soumilshah1995/install-external-python-packages-on-serverless/tree/main/Lab17                 |
 |18   |Learn how to Develop Web Scrappers and scrape things at Scale Using AWS Lambdas  Lab 18        |   XXXX                                                                                         |        https://github.com/soumilshah1995/install-external-python-packages-on-serverless/tree/main/Lab18                |
-|21   |Process CSV Files When Inserted on AWS S3 Via Events and Lambdas | Lab 21      |   https://github.com/soumilshah1995/install-external-python-packages-on-serverless/tree/main/Lab%2021                                                                                         |                    |
-|22   |Learn how to Build FIFO FAN Out Model (SNS SQS Lambda)| Lab 22      |   XXX                                                                                        |                    |
+|21   |Process CSV Files When Inserted on AWS S3 Via Events and Lambdas |https://youtu.be/fyyQeZVC3Nc     |   https://github.com/soumilshah1995/install-external-python-packages-on-serverless/tree/main/Lab%2021                                                                                         |                    |
+|22   |Learn how to Build FIFO FAN Out Model (SNS SQS Lambda)| https://youtu.be/Hq_z4UQWjHs         |         https://github.com/soumilshah1995/install-external-python-packages-on-serverless/tree/main/Lab22                                                                              |                    |
+|23   |How to Move Data from DynamoDB to Data lake S3  Hands on Lab  Glue  Serverless Framework Lab 23 | https://youtu.be/V3O9O5plC4M        |              https://github.com/soumilshah1995/install-external-python-packages-on-serverless/tree/main/Lab%2023                                                                   |                    |
+|24   | Populate Datalake (S3) Real Time from DynamoDB with Streams  Infrasture Code  Data Archive Project | https://youtu.be/ytpbxb_D6FY      |             https://github.com/soumilshah1995/install-external-python-packages-on-serverless/tree/main/Lab24                                                                |                    |
+|25   | Powering DownStream Users from DynamoDB Streams FAN out Model Via Kinesis Lab 25 with Code | https://youtu.be/Qli_cEjGbbQ     |   https://github.com/soumilshah1995/install-external-python-packages-on-serverless/tree/main/Lab25                                                               |                    |
+|26   | Athena Reporting Lambda | https://www.youtube.com/watch?v=-uhTElNP29U&feature=youtu.be   |                                                              |                    |
 
 
-
-
-## Lab 18 : Refer https://github.com/soumilshah1995/Selenium-on-AWS-Lambda-Python3.7
+*  Lab 18 : Refer https://github.com/soumilshah1995/Selenium-on-AWS-Lambda-Python3.7
 
 ## Step 1: Install Serverless
 ```
