@@ -1,4 +1,4 @@
-# Learn Serverless Framew work in easy eay 
+# Learn Serverless Framew work in easy way 
 install external python packages on serverless
 
 # Tutorials 
