@@ -1,4 +1,4 @@
-# Learn Serverless Framew work in easy way 
+# Learn Serverless Framework  work in easy way 
 install external python packages on serverless
 
 # Tutorials 
