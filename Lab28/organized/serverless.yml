@@ -1,0 +1,25 @@
+service: aws-sns-project
+frameworkVersion: '3'
+
+
+provider:
+  name: aws
+  runtime: python3.8
+  memorySize: 200
+  timeout: 500
+  stackTags:
+    created-date: "2022-12-26"
+    customer-impact: "false"
+    terraform: "false"
+    role: serverless
+
+
+useDotenv: true
+
+
+functions: ${file(src/Lambda/serverless.yml)}
+
+
+resources:
+  - ${file(src/SNS/serverless.yml)}
+
