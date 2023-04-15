@@ -23,17 +23,6 @@ plugins:
   - serverless-python-requirements
 
 
-#custom:
-#  pythonRequirements:
-#    slim: true
-#    slimPatterns:
-#      - '**/*.egg-info*'
-#    layer:
-#      name: data-crunch
-#      description: "for data engineering"
-#      compatibleRuntimes:
-#        - python3.7
-
 custom:
   pythonRequirements:
     dockerizePip: true
@@ -48,8 +37,6 @@ functions:
       DEV_SECRET_KEY: ${env:DEV_SECRET_KEY}s
       DEV_REGION: ${env:DEV_REGION}
       BUCKET: ${env:BUCKET}
-#    layers:
-#      - Ref: PythonRequirementsLambdaLayer
     events:
       - sqs:
           arn:
