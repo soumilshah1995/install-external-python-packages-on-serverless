@@ -1,0 +1,67 @@
+service: aws-lambda-parquet-files
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.7
+  memorySize: 800
+  timeout: 200
+  architecture: x86_64
+  stackTags:
+    product: datateam
+    env: qa
+    created-date: 2022-04-05
+    team: data
+    customer-impact: false
+    terraform: false
+
+useDotenv: true
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-python-requirements
+
+
+#custom:
+#  pythonRequirements:
+#    slim: true
+#    slimPatterns:
+#      - '**/*.egg-info*'
+#    layer:
+#      name: data-crunch
+#      description: "for data engineering"
+#      compatibleRuntimes:
+#        - python3.7
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    zip: true
+
+
+functions:
+  consumer:
+    handler: handler.consume
+    environment:
+      DEV_ACCESS_KEY: ${env:DEV_ACCESS_KEY}
+      DEV_SECRET_KEY: ${env:DEV_SECRET_KEY}s
+      DEV_REGION: ${env:DEV_REGION}
+      BUCKET: ${env:BUCKET}
+#    layers:
+#      - Ref: PythonRequirementsLambdaLayer
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - MyQueue
+              - Arn
+          batchSize: 10
+
+resources:
+  Resources:
+    MyQueue:
+      Type: "AWS::SQS::Queue"
+      Properties:
+        QueueName: ${env:QueueName}
+        VisibilityTimeout: 400
